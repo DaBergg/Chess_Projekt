@@ -7,6 +7,7 @@ public class Figure {
     int y;
     boolean isWhite;
     LinkedList<Figure> f;
+
     public Figure(int x, int y, boolean isWhite, LinkedList<Figure> f) {
         this.x = x;
         this.y = y;
