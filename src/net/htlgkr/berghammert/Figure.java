@@ -7,11 +7,13 @@ public class Figure {
     int y;
     boolean isWhite;
     LinkedList<Figure> f;
-    public Figure(int x, int y, boolean isWhite, LinkedList<Figure> f) {
+    String Name;
+    public Figure(int x, int y, boolean isWhite, String n, LinkedList<Figure> f) {
         this.x = x;
         this.y = y;
         this.isWhite = isWhite;
         this.f = f;
+        this.Name = n;
         f.add(this);
     }
     public void move(int x, int y) {
