@@ -14,10 +14,10 @@ public class Board extends JPanel{
                 for(int i = 0; i < 8; i++) {
                     for(int j = 0; j<8; j++) {
                         if(white) {
-                            graphics.setColor(Color.white);
+                            graphics.setColor(Color.LIGHT_GRAY);
                         }
                         else {
-                            graphics.setColor(Color.black);
+                            graphics.setColor(Color.DARK_GRAY);
                         }
                         graphics.fillRect(j*64, i*64, 64, 64);
                         white=!white;
