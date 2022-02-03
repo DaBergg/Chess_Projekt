@@ -16,7 +16,7 @@ public class Board
     private boolean selected;
     private King whiteKing, blackKing;
     private Cell selectedCell;
-    private CopyOnWriteArrayList<Piece> whitePieces, blackPieces,
+    private CopyOnWriteArrayList<Figure> whitePieces, blackPieces,
             killedPieces;
 
     private void emptyBoard()
@@ -59,19 +59,18 @@ public class Board
             try
             {
                 this.construct(new Pawn(White, cells[1][j]), cells[1][j]);
-                //the second nearest row to white is filled with white pawns
+
                 this.construct(new Pawn(Black, cells[6][j]), cells[6][j]);
-                //the second nearest row to black is filled with black pawns.
+
             }
             catch(Exception e)
             {
-                System.out.println("Something went wrong while constructing pawns.");
+                e.printStackTrace();
             }
         }
 
         try
         {
-            //giving 2 rooks to both the player on respective corners.
             this.construct(new Rook(White), cells[0][0]);
             this.construct(new Rook(White), cells[0][7]);
             this.construct(new Rook(Black), cells[7][0]);
@@ -79,12 +78,12 @@ public class Board
         }
         catch(Exception e)
         {
-            System.out.println("Something went wrong while constructing rooks.");
+            e.printStackTrace();
         }
 
         try
         {
-            //giving 2 knights to both players on cells just beside the rooks.
+
             this.construct(new Knight(White), cells[0][1]);
             this.construct(new Knight(White), cells[0][6]);
             this.construct(new Knight(Black), cells[7][1]);
@@ -92,11 +91,11 @@ public class Board
         }
         catch(Exception e)
         {
-            System.out.println("Something went wrong while constructing knights.");
+            e.printStackTrace();
         }
 
         try
-        {	//giving 2 bishops to both players on cells just beside the knights.
+        {
             this.construct(new Bishop(White), cells[0][2]);
             this.construct(new Bishop(White), cells[0][5]);
             this.construct(new Bishop(Black), cells[7][2]);
@@ -104,23 +103,23 @@ public class Board
         }
         catch(Exception e)
         {
-            System.out.println("Something went wrong while constructing bishops.");
+            e.printStackTrace();
         }
 
         try
         {
-            //giving a queen to both players on cells just beside a bishop.
+
             this.construct(new Queen(White), cells[0][3]);
             this.construct(new Queen(Black), cells[7][3]);
         }
         catch(Exception e)
         {
-            System.out.println("Something went wrong while constructing queens.");
+            e.printStackTrace();
         }
 
         try
         {
-            //giving a king to both players on cells just beside the queen.
+
             whiteKing = new King(White);
             blackKing = new King(Black);
             this.construct(whiteKing, cells[0][4]);
@@ -143,7 +142,7 @@ public class Board
         this.currentPlayerColour = opposite(currentPlayerColour);
     }
 
-    public void construct(Piece piece, Cell cell)
+    public void construct(Figure piece, Cell cell)
     {
 
         if(piece.colour.equals(White))
@@ -153,10 +152,7 @@ public class Board
         movement.construct(piece, cell);
     }
 
-    /**
-     * Returns the reference to the cell at (row, col) in the board.
-     * Returns null if the row or column are not valid (out of bounds).
-     * */
+
     public Cell getCellAt(char row, char col)
     {
         if(row>=rowMin && col>=colMin && row<=rowMax && col<=colMax)
@@ -170,7 +166,7 @@ public class Board
         return this.getCellAt((char)row, (char)col);
     }
 
-    public CopyOnWriteArrayList<Piece> getPieces(String colour)
+    public CopyOnWriteArrayList<Figure> getPieces(String colour)
     {
         if(colour.equals(White))
             return whitePieces;
@@ -186,7 +182,7 @@ public class Board
             return White;
     }
 
-    public void kill(Piece piece)
+    public void kill(Figure piece)
     {
         if(piece!= null)
         {
@@ -194,7 +190,7 @@ public class Board
         }
     }
 
-    public boolean isKilled(Piece piece)
+    public boolean isKilled(Figure piece)
     {
         //System.out.println(piece + " isKilled");
         if(piece == null)
@@ -202,15 +198,12 @@ public class Board
         return killedPieces.contains(piece);
     }
 
-    public void reincarnate(Piece piece)
+    public void reincarnate(Figure piece)
     {
         if(piece!= null)
         {
             killedPieces.remove(piece);
-            //if(piece.getColour() == White)
-            //	whitePieces.add(piece);
-            //else
-            //	blackPieces.add(piece);
+
         }
     }
 
@@ -230,19 +223,18 @@ public class Board
             return false;
         }
 
-        //Piece piece = thisCell.getPiece();
+
 
         if(!selected)
         {
-            //if player clicks on his own piece, mark it as selected.
+
             if(movement.canSelect(thisCell, currentPlayerColour))
             {
                 selectedCell = thisCell;
                 selected = true;
                 thisCell.select(true);
 
-                //pinning: a piece can't move if it makes
-                //it's own king vulnerable in the immediate next move.
+
 
                 ArrayList<Cell> allMoves = movement.getAllMoves(thisCell);
                 for(Cell c: allMoves)
@@ -250,7 +242,7 @@ public class Board
                     c.setNextMove(true);
                 }
             }
-            //If he clicks on an opponent piece, don't do anything.
+
             return false;
         }
         else
@@ -324,15 +316,10 @@ public class Board
         return movement.getPieceType(thisCell);
     }
 
-    public Class<? extends Piece> getPieceClass(Cell thisCell)
+    public Class<? extends Figure> getPieceClass(Cell thisCell)
     {
         return movement.getPieceClass(thisCell);
     }
-	/*
-	public ArrayList<Cell> getAllMoves(Piece piece)
-	{
-		return movement.getAllMoves(piece);
-	}*/
 
     public Movement getMovement()
     {
