@@ -2,28 +2,22 @@ package net.htlgkr.berghammert;
 
 import java.util.LinkedList;
 
-public class Figure {
-    int x;
-    int y;
-    boolean isWhite;
-    LinkedList<Figure> f;
-    String Name;
-    public Figure(int x, int y, boolean isWhite, String n, LinkedList<Figure> f) {
-        this.x = x;
-        this.y = y;
-        this.isWhite = isWhite;
-        this.f = f;
-        this.Name = n;
-        f.add(this);
+public abstract class Figure
+{
+    public final String colour;
+
+
+    public Figure(String col)
+    {
+        this.colour = col;
     }
-    public void move(int x, int y) {
-        for(Figure f: f) {
-            if(f.x == x && f.y == y) {
-                f.beat();
-            }
-        }
+
+    public abstract String toString();
+
+
+    public String getColour()
+    {
+        return colour;
     }
-    public void beat() {
-        f.remove(this);
-    }
+
 }
