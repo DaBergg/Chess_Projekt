@@ -31,11 +31,12 @@ public class Board
         {
             cells = new Cell[8][8];
             for(int i=0; i<8; i++)
-            {	for(int j=0; j<8; j++)
-            {	cells[i][j]= new Cell((char)(rowMin+i), (char)(colMin+j));
+            {
+                for(int j=0; j<8; j++)
+                {
+                    cells[i][j]= new Cell((char)(rowMin+i), (char)(colMin+j));
+                }
             }
-            }
-
             movement = new Movement(this);
         }
         catch(Exception e)
@@ -207,7 +208,21 @@ public class Board
         }
     }
 
-
+    public void print()
+    {
+        for(int i=0; i<8; i++)
+        {
+            for(int j=0; j<8; j++)
+            {
+                Figure onThis = movement.getPieceOn(cells[i][j]);
+                if(onThis == null)
+                    System.out.print(" - ");
+                else
+                    System.out.print(onThis.toString()+" ");
+            }
+            System.out.println();
+        }
+    }
 
     public boolean clicked(int row, int col)
     {
