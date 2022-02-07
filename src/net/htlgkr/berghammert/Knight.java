@@ -2,7 +2,7 @@ package net.htlgkr.berghammert;
 
 public class Knight extends Figure
 {
-    public Knight(String col)
+    public Knight(String col) throws Exception
     {
         super(col);
     }

@@ -6,9 +6,8 @@ public class Cell {
     private boolean selected;
     private boolean nextMove;
 
+    public Cell(char r, char c) {
 
-    public Cell(char r, char c) throws Exception
-    {
         row = r;
         col = c;
 
@@ -17,43 +16,33 @@ public class Cell {
     }
 
 
-    public void select(boolean x)
-    {
+    public void select(boolean x) {
         this.selected = x;
     }
 
-
-    public void setNextMove(boolean x)
-    {
+    public void setNextMove(boolean x) {
         nextMove = x;
     }
 
-
-    public boolean isSelected()
-    {
+    public boolean isSelected() {
         return selected;
     }
 
-
-    public boolean isNextMove()
-    {
+    public boolean isNextMove() {
         return nextMove;
     }
 
-
     @Override
-    public String toString()
-    {
-        return this.col+""+this.row;
+    public String toString() {
+        return this.col + "" + this.row;
     }
 
     @Override
-    public boolean equals(Object obj)
-    {
-        if(!(obj instanceof Cell))
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Cell))
             return false;
-        Cell other = (Cell)obj;
-        if(other.row == this.row && other.col == this.col)
+        Cell other = (Cell) obj;
+        if (other.row == this.row && other.col == this.col)
             return true;
         return false;
     }

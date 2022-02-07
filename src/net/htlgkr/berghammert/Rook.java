@@ -2,11 +2,10 @@ package net.htlgkr.berghammert;
 
 public class Rook extends Figure
 {
-    public Rook(String col)
+    public Rook(String col) throws Exception
     {
         super(col);
     }
-
 
     @Override
     public String toString()
